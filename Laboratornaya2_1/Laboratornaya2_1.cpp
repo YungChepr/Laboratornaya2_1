@@ -35,7 +35,7 @@ struct ancetastud
         struct     //Структура хранит данные для студента двоечника
         {
             char adres[30];
-            int telephone[30];
+            char telephone[30];
         } dvo;
     }uch;
 
@@ -136,7 +136,7 @@ int f1()
                     printf("Нажмите Enter\n");
                     while (getchar() != '\n');
                     printf("Введите телефон студента\n");
-                    scanf("%d", &spisokstud[i].uch.dvo.telephone);
+                    gets_s(spisokstud[i].uch.dvo.telephone);
                 };
             };
 
@@ -166,7 +166,7 @@ int f2()
         printf("Преподователь %d \n", (j + 1));
         printf(" ФИО: "); gets_s(spisokprepod[j].fio);
         printf(" Факультет: "); gets_s(spisokprepod[j].fakul);
-        printf(" Факультет: "); gets_s(spisokprepod[j].predmet);
+        printf(" Предмет: "); gets_s(spisokprepod[j].predmet);
         printf(" Номер аудитории: "); scanf("%d", &spisokprepod[j].auditor);
         printf(" Стаж работы: "); scanf("%d", &spisokprepod[j].stage);
 
@@ -241,6 +241,40 @@ void f3(int n)
         {
             printf(" %s ", spisokstud[i].uch.dvo.adres);
             printf(" %s \n ", spisokstud[i].uch.dvo.telephone);
+        }
+    }
+}
+
+void f4(int m)
+{
+    //Блок - вывод данных о преподователей
+    int j;//Индекс массива преподователей
+    for (j = 0; j < m; j++)
+    {
+        printf(" %s ", spisokprepod[j].fio);
+        printf(" %s ", spisokprepod[j].fakul);
+        printf(" %s ", spisokprepod[j].predmet);
+        printf(" %d ", spisokprepod[j].auditor);
+        printf(" %d ", spisokprepod[j].stage);
+        if (spisokprepod[j].type == 1)
+        {
+            printf(" %s  ", spisokprepod[j].pre.dol.zvanie);
+            printf(" %d \n ", spisokprepod[j].pre.dol.zarplata);
+        }
+        if (spisokprepod[j].type == 2)
+        {
+            printf(" %s \n ", spisokprepod[j].pre.sre.zvanie);
+            printf(" %d \n ", spisokprepod[j].pre.sre.zarplata);
+        }
+        if (spisokprepod[j].type == 3)
+        {
+            printf(" %s \n ", spisokprepod[j].pre.kor.zvanie);
+            printf(" %d \n ", spisokprepod[j].pre.kor.zarplata);
+        }
+        if (spisokprepod[j].type == 4)
+        {
+            printf(" %s ", spisokprepod[j].pre.ochkor.zvanie);
+            printf(" %d \n ", spisokprepod[j].pre.ochkor.zarplata);
         }
     }
 }
