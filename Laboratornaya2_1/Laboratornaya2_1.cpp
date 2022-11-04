@@ -13,7 +13,7 @@ int main()
 {
     setlocale(LC_ALL, "RUS");
     //Задаем переменную структуру для создания анкеты данных о студентах.
-    struct anceta
+    struct ancetastud
     {
         char fio[20]; //Переменная хранит имя студнта
         int nomerGrup; //Переменная хранит номер группы студнта
@@ -39,13 +39,76 @@ int main()
             struct    //Структура хранит данные для студента двоечника
             {
                 char adres[30];
-                char telephone[30];
+                int telephone[30];
             } dvo;
-        }un;
-    }spisok[30]; //Массив в котором будут хранится данные студентов
+        }uch;
+       
+    }spisokstud[30]; //Массив в котором будут хранится данные студентов
 
 
-    std::cout << "Hello World!\n";
+    
+
+    int n,//Количество студентов
+        i,//Индекс массива студентов
+        flag;//Переменная для цикла do
+
+    do {
+        printf("\n Введите количество студентов n (n<20): ");
+        scanf("%d", &n); while (getchar() != '\n');
+    } while (n < 1 || n>20);
+    for (i = 0; i < n; i++)
+    {
+        printf("Студент %d \n", (i + 1));
+        printf(" ФИО: "); gets_s(spisokstud[i].fio);
+        printf(" Номер группы: "); scanf("%d", &spisokstud[i].nomerGrup);
+        printf(" Номер студенческого "); scanf("%d", &spisokstud[i].nomerStud);
+        printf(" Рейтинг студента: "); scanf("%d", &spisokstud[i].reiting);
+
+        if (spisokstud[i].reiting >= 75)
+        {
+
+            spisokstud[i].type = 1;
+            strcpy(spisokstud[i].uch.otl.dopstependia, "Студент получает степендию ");
+            printf("Введите размер Дополнительной степендии\n");
+            scanf("%d", &spisokstud[i].uch.otl.razmer);
+        }
+        else
+        {
+
+            if (spisokstud[i].reiting >= 50)
+            {
+                spisokstud[i].type = 2;
+                strcpy(spisokstud[i].uch.hor.stependia, "Студент  получает степендию ");
+                printf("Введите размер обычной степендии\n");
+                scanf("%d", &spisokstud[i].uch.hor.razmer);
+            }
+            else
+            {
+                if (spisokstud[i].reiting >= 25)
+                {
+                    spisokstud[i].type = 3;
+                    strcpy(spisokstud[i].uch.hor.stependia, "Студент НЕ получает степендию ");
+
+                }
+                else
+                {
+                    spisokstud[i].type = 4;
+                    while (getchar() != '\n');
+                    printf("Введите домашний адрес студента\n");
+                    gets_s(spisokstud[i].uch.dvo.adres);
+                    printf("Нажмите Enter\n");
+                    while (getchar() != '\n');
+                    printf("Введите телефон студента\n");
+                    scanf("%d", &spisokstud[i].uch.dvo.telephone);
+                };
+            };
+
+
+        }
+        printf("\n");
+        while (getchar() != '\n');
+    }
+    printf("\nКонец цикла");
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
