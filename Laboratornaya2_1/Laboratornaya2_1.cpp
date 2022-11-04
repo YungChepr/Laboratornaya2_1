@@ -50,39 +50,46 @@ int main()
     //Задаем переменную структуру для создания анкеты данных о преподователях.
     struct ancetaprepod
     {
-        char fio[20]; //Переменная хранит имя преподователя
-        char fio[20]; //Переменная хранит название факультета
-        int auditor;  //Переменная хранит номер аудитории
-        int stage;    //Переменная хранит стаж преподователя
-        int type;     //Переменная хранит метку активного компонента
+        char fio[20];    //Переменная хранит имя преподователя
+        char fakul[20];  //Переменная хранит название факультета
+        char predmet[30];//Переменная хранит предмет преподователя
+        int auditor;     //Переменная хранит номер аудитории
+        int stage;       //Переменная хранит стаж преподователя
+        int type;        //Переменная хранит метку активного компонента
         union
         {
             struct    //Структура хранит данные для профессора
             {
-                int stage;
+                char zvanie[30];
                 int zarplata;
-                char predmet[30];
+                
             } dol;
             struct    //Структура хранит данные для доцента
             {
-                int stage;
+                char zvanie[30];
                 int zarplata;
-                char predmet[30];
+                
             } sre;
+            struct    //Структура хранит данные для старшего преподователя
+            {
+                char zvanie[30];
+                int zarplata;
+               
+            } kor;
             struct    //Структура хранит данные для преподователя
             {
-                int stage;
+                char zvanie[30];
                 int zarplata;
-                char predmet[30];
-            } kor;
+
+            } ochkor;
         }pre;
 
     }spisokprepod[30]; //Массив в котором будут хранится данные преподователей
 
-
+    //Блок - ввод данных о студентах
     int n,//Количество студентов
         i,//Индекс массива студентов
-        flag;//Переменная для цикла do
+        flag1;//Переменная для цикла do
 
     do {
         printf("\n Введите количество студентов n (n<20): ");
@@ -134,6 +141,65 @@ int main()
                     scanf("%d", &spisokstud[i].uch.dvo.telephone);
                 };
             };
+
+
+        }
+        printf("\n");
+        while (getchar() != '\n');
+    }
+    printf("\nКонец цикла");
+
+
+    //Блок - ввод данных о преподователях
+    int m,//Количество преподователей
+        j,//Индекс массива преподователей
+        flag2;//Переменная для цикла do
+
+    do {
+        printf("\n Введите количество преподователей m (m<20): ");
+        scanf("%d", &m); while (getchar() != '\n');
+    } while (m < 1 || m>20);
+    for (j = 0; j < m; j++)
+    {
+        printf("Преподователь %d \n", (j + 1));
+        printf(" ФИО: "); gets_s(spisokprepod[j].fio);
+        printf(" Факультет: "); gets_s(spisokprepod[j].fakul);
+        printf(" Факультет: "); gets_s(spisokprepod[j].predmet);
+        printf(" Номер аудитории: "); scanf("%d", &spisokprepod[j].auditor);
+        printf(" Стаж работы: "); scanf("%d", &spisokprepod[j].stage);
+
+        if (spisokprepod[j].stage >= 30)
+        {
+            spisokprepod[j].type = 1;
+            strcpy(spisokprepod[j].pre.dol.zvanie, "Профессор ");
+            printf("Введите размер зарплаты\n");
+            scanf("%d", &spisokprepod[j].pre.dol.zarplata);
+        }
+        else
+        {
+
+            if (spisokprepod[j].stage >= 20)
+            {
+                spisokprepod[j].type = 2;
+                strcpy(spisokprepod[j].pre.sre.zvanie, "Доцент ");
+                printf("Введите размер зарплаты\n");
+                scanf("%d", &spisokprepod[j].pre.sre.zarplata);
+            }
+            else
+                if (spisokprepod[j].stage >= 10)
+                {
+                    spisokprepod[j].type = 3;
+                    strcpy(spisokprepod[j].pre.kor.zvanie, "Старший Преподователь ");
+                    printf("Введите размер зарплаты\n");
+                    scanf("%d", &spisokprepod[j].pre.kor.zarplata);
+                }
+                else
+                {
+                    spisokprepod[j].type = 4;
+                     strcpy(spisokprepod[j].pre.ochkor.zvanie, "Преподователь ");
+                     printf("Введите размер зарплаты\n");
+                     scanf("%d", &spisokprepod[j].pre.ochkor.zarplata);
+                };
 
 
         }
