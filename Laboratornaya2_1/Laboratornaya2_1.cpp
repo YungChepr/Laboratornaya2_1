@@ -8,88 +8,86 @@
 #include <clocale>
 #include <locale.h>
 
-
-int main()
+//Задаем переменную структуру для создания анкеты данных о студентах.
+struct ancetastud
 {
-    setlocale(LC_ALL, "RUS");
-
-    //Задаем переменную структуру для создания анкеты данных о студентах.
-    struct ancetastud
+    char fio[20];  //Переменная хранит имя студнта
+    int nomerGrup; //Переменная хранит номер группы студнта
+    int nomerStud; //Переменная хранит номер студенческого студнта
+    int reiting;   //Переменная хранит рейтинг студнта
+    int type;      //Переменная хранит метку активного компонента
+    union          //Объединение хранит переменные компонент который различается в зависимости от рейтинга студента
     {
-        char fio[20];  //Переменная хранит имя студнта
-        int nomerGrup; //Переменная хранит номер группы студнта
-        int nomerStud; //Переменная хранит номер студенческого студнта
-        int reiting;   //Переменная хранит рейтинг студнта
-        int type;      //Переменная хранит метку активного компонента
-        union          //Объединение хранит переменные компонент который различается в зависимости от рейтинга студента
+        struct     //Структура хранит данные для студента отличника
         {
-            struct     //Структура хранит данные для студента отличника
-            {
-                char dopstependia[30];
-                int razmer;
-            } otl;
-            struct     //Структура хранит данные для студента хорошиста 
-            {
-                char stependia[30];
-                int razmer;
-            } hor;
-            struct     //Структура хранит данные для студента троечника 
-            {
-                char stependia[30];
-            } tro;
-            struct     //Структура хранит данные для студента двоечника
-            {
-                char adres[30];
-                int telephone[30];
-            } dvo;
-        }uch;
-       
-    }spisokstud[30]; //Массив в котором будут хранится данные студентов
+            char dopstependia[30];
+            int razmer;
+        } otl;
+        struct     //Структура хранит данные для студента хорошиста 
+        {
+            char stependia[30];
+            int razmer;
+        } hor;
+        struct     //Структура хранит данные для студента троечника 
+        {
+            char stependia[30];
+        } tro;
+        struct     //Структура хранит данные для студента двоечника
+        {
+            char adres[30];
+            int telephone[30];
+        } dvo;
+    }uch;
+
+}spisokstud[30]; //Массив в котором будут хранится данные студентов
 
 
-    //Задаем переменную структуру для создания анкеты данных о преподователях.
-    struct ancetaprepod
+//Задаем переменную структуру для создания анкеты данных о преподователях.
+struct ancetaprepod
+{
+    char fio[20];    //Переменная хранит имя преподователя
+    char fakul[20];  //Переменная хранит название факультета
+    char predmet[30];//Переменная хранит предмет преподователя
+    int auditor;     //Переменная хранит номер аудитории
+    int stage;       //Переменная хранит стаж преподователя
+    int type;        //Переменная хранит метку активного компонента
+    union
     {
-        char fio[20];    //Переменная хранит имя преподователя
-        char fakul[20];  //Переменная хранит название факультета
-        char predmet[30];//Переменная хранит предмет преподователя
-        int auditor;     //Переменная хранит номер аудитории
-        int stage;       //Переменная хранит стаж преподователя
-        int type;        //Переменная хранит метку активного компонента
-        union
+        struct    //Структура хранит данные для профессора
         {
-            struct    //Структура хранит данные для профессора
-            {
-                char zvanie[30];
-                int zarplata;
-                
-            } dol;
-            struct    //Структура хранит данные для доцента
-            {
-                char zvanie[30];
-                int zarplata;
-                
-            } sre;
-            struct    //Структура хранит данные для старшего преподователя
-            {
-                char zvanie[30];
-                int zarplata;
-               
-            } kor;
-            struct    //Структура хранит данные для преподователя
-            {
-                char zvanie[30];
-                int zarplata;
+            char zvanie[30];
+            int zarplata;
 
-            } ochkor;
-        }pre;
+        } dol;
+        struct    //Структура хранит данные для доцента
+        {
+            char zvanie[30];
+            int zarplata;
 
-    }spisokprepod[30]; //Массив в котором будут хранится данные преподователей
+        } sre;
+        struct    //Структура хранит данные для старшего преподователя
+        {
+            char zvanie[30];
+            int zarplata;
 
+        } kor;
+        struct    //Структура хранит данные для преподователя
+        {
+            char zvanie[30];
+            int zarplata;
+
+        } ochkor;
+    }pre;
+
+}spisokprepod[30]; //Массив в котором будут хранится данные преподователей
+
+
+int f1()
+{
     //Блок - ввод данных о студентах
     int n,//Количество студентов
-        i,//Индекс массива студентов
-        flag1;//Переменная для цикла do
+        i;//Индекс массива студентов
+        
 
     do {
         printf("\n Введите количество студентов n (n<20): ");
@@ -149,11 +147,15 @@ int main()
     }
     printf("\nКонец цикла");
 
+    return n;
+}
 
+int f2()
+{
     //Блок - ввод данных о преподователях
     int m,//Количество преподователей
-        j,//Индекс массива преподователей
-        flag2;//Переменная для цикла do
+        j;//Индекс массива преподователей
+       
 
     do {
         printf("\n Введите количество преподователей m (m<20): ");
@@ -196,9 +198,9 @@ int main()
                 else
                 {
                     spisokprepod[j].type = 4;
-                     strcpy(spisokprepod[j].pre.ochkor.zvanie, "Преподователь ");
-                     printf("Введите размер зарплаты\n");
-                     scanf("%d", &spisokprepod[j].pre.ochkor.zarplata);
+                    strcpy(spisokprepod[j].pre.ochkor.zvanie, "Преподователь ");
+                    printf("Введите размер зарплаты\n");
+                    scanf("%d", &spisokprepod[j].pre.ochkor.zarplata);
                 };
 
 
@@ -207,6 +209,50 @@ int main()
         while (getchar() != '\n');
     }
     printf("\nКонец цикла");
+
+    return m;
+}
+
+void f3(int n)
+{
+    //Блок - вывод данных о студентах
+    int i;//Индекс массива студентов
+    for (i = 0; i < n; i++)
+    {
+        printf(" %s ", spisokstud[i].fio);
+        printf(" %d ", spisokstud[i].nomerGrup);
+        printf(" %d ", spisokstud[i].nomerStud);
+        printf(" %d ", spisokstud[i].reiting);
+        if (spisokstud[i].type == 1)
+        {
+            printf(" %s  ", spisokstud[i].uch.otl.dopstependia);
+            printf(" %d \n ", spisokstud[i].uch.otl.razmer);
+        }
+        if (spisokstud[i].type == 2)
+        {
+            printf(" %s \n ", spisokstud[i].uch.hor.stependia);
+            printf(" %d \n ", spisokstud[i].uch.hor.razmer);
+        }
+        if (spisokstud[i].type == 3)
+        {
+            printf(" %s \n ", spisokstud[i].uch.tro.stependia);
+        }
+        if (spisokstud[i].type == 4)
+        {
+            printf(" %s ", spisokstud[i].uch.dvo.adres);
+            printf(" %s \n ", spisokstud[i].uch.dvo.telephone);
+        }
+    }
+}
+
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+
+    
+  
+
+    
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
