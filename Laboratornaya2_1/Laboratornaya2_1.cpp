@@ -1,10 +1,50 @@
 ﻿// Laboratornaya2_1.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
 
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <conio.h>
+#include <stdio.h>
+#include <clocale>
+#include <locale.h>
+
 
 int main()
 {
+    setlocale(LC_ALL, "RUS");
+    //Задаем переменную структуру для создания анкеты данных о студентах.
+    struct anceta
+    {
+        char fio[20]; //Переменная хранит имя студнта
+        int nomerGrup; //Переменная хранит номер группы студнта
+        int nomerStud; //Переменная хранит номер студенческого студнта
+        int reiting; //Переменная хранит рейтинг студнта
+        int type; //Переменная хранит метку активного компонента
+        union          //Объединение хранит переменные компонент который различается в зависимости от рейтинга студента
+        {
+            struct     //Структура хранит данные для студента отличника
+            {
+                char dopstependia[30];
+                int razmer;
+            } otl;
+            struct    //Структура хранит данные для студента хорошиста 
+            {
+                char stependia[30];
+                int razmer;
+            } hor;
+            struct    //Структура хранит данные для студента троечника 
+            {
+                char stependia[30];
+            } tro;
+            struct    //Структура хранит данные для студента двоечника
+            {
+                char adres[30];
+                char telephone[30];
+            } dvo;
+        }un;
+    }spisok[30]; //Массив в котором будут хранится данные студентов
+
+
     std::cout << "Hello World!\n";
 }
 
