@@ -11,7 +11,7 @@
 //Задаем переменную структуру для создания анкеты данных о студентах.
 struct ancetastud
 {
-    char fio[20];  //Переменная хранит имя студнта
+    char fio[30];  //Переменная хранит имя студнта
     int nomerGrup; //Переменная хранит номер группы студнта
     int nomerStud; //Переменная хранит номер студенческого студнта
     int reiting;   //Переменная хранит рейтинг студнта
@@ -145,7 +145,7 @@ int f1()
         printf("\n");
         while (getchar() != '\n');
     }
-    printf("\nКонец цикла");
+    
 
     return n;
 }
@@ -225,12 +225,12 @@ void f3(int n)
         printf(" %d ", spisokstud[i].reiting);
         if (spisokstud[i].type == 1)
         {
-            printf(" %s  ", spisokstud[i].uch.otl.dopstependia);
+            printf(" %s ", spisokstud[i].uch.otl.dopstependia);
             printf(" %d \n ", spisokstud[i].uch.otl.razmer);
         }
         if (spisokstud[i].type == 2)
         {
-            printf(" %s \n ", spisokstud[i].uch.hor.stependia);
+            printf(" %s ", spisokstud[i].uch.hor.stependia);
             printf(" %d \n ", spisokstud[i].uch.hor.razmer);
         }
         if (spisokstud[i].type == 3)
@@ -249,6 +249,7 @@ void f4(int m)
 {
     //Блок - вывод данных о преподователей
     int j;//Индекс массива преподователей
+        
     for (j = 0; j < m; j++)
     {
         printf(" %s ", spisokprepod[j].fio);
@@ -279,9 +280,73 @@ void f4(int m)
     }
 }
 
+void f5()
+{
+    //Блок - поиск по имени среди студентов
+
+}
 int main()
 {
     setlocale(LC_ALL, "RUS");
+    int a, //Переменная отвечающая за выбор строчки в меню
+        n=0,//Количество студентов
+        m=0;//Количество преподователей
+
+    do {
+        do {
+            printf("Выберите действие в меню\n");
+            printf(" 1 - Ввод данных о студентах\n");
+            printf(" 2 - Ввод данных о преподователях \n");
+            printf(" 3 - Вывод данных о студентах\n");
+            printf(" 4 - Вывод данных о студентах\n");
+            printf(" 5 - Поиск по имени среди студентов\n");
+            printf(" 6 - Поиск по имени среди преподователей\n");
+            printf(" 7 - Выход из системы\n");
+            while (scanf("%d", &a) != 1) //Проверка ввода если бользователь введет одну цифра scanf вернет 1
+            {
+                while (getchar() != '\n');
+                printf("Ошибка. Введите число от 1 до 7 включительно: ");
+            }
+        } while ((a < 1) || (a > 7));
+
+        if (a == 1)
+        {
+            printf("Ввод данных о студентах\n");
+            n=f1();
+        }
+        if (a == 2)
+        {
+            printf("Ввод данных о преподователях\n");
+            m=f2();
+        }
+        if (a == 3)
+        {
+            if (n != 0) 
+            {
+                printf("Вывод данных о студентах\n");
+                f3(n);
+            }
+            else
+            {
+                printf("Сначала введите данные хотя бы об одном студенте\n");
+            }
+        }
+        if (a == 4)
+        {
+            if (m != 0)
+            {
+                printf("Вывод данных о преплдователях\n");
+                f4(m);
+            }
+            else
+            {
+                printf("Сначала введите данные хотя бы об одном преподователе\n");
+            }
+        }
+
+    } while (a != 7);
+    printf("\nВы вышли из системы\n");
+
 
     
   
