@@ -91,15 +91,44 @@ int f1()
 
     do {
         printf("\n Введите количество студентов n (n<20): ");
-        scanf("%d", &n); while (getchar() != '\n');
+        while (scanf("%d", &n) != 1) //Проверка ввода если пользователь введет введет не цифру
+        {
+            while (getchar() != '\n');
+            printf("Ошибка. Введите число от как показано в примере : ");
+        }
+        while (getchar() != '\n');
     } while (n < 1 || n>20);
     for (i = 0; i < n; i++)
     {
         printf("Студент %d \n", (i + 1));
         printf(" ФИО: "); gets_s(spisokstud[i].fio);
-        printf(" Номер группы: "); scanf("%d", &spisokstud[i].nomerGrup);
-        printf(" Номер студенческого "); scanf("%d", &spisokstud[i].nomerStud);
-        printf(" Рейтинг студента: "); scanf("%d", &spisokstud[i].reiting);
+
+        do {
+        printf(" Номер группы:(Введите в формате 5 цифр '22091')\n"); 
+        while (scanf("%d", &spisokstud[i].nomerGrup) != 1) //Проверка ввода если пользователь введет не цифру
+        {
+            while (getchar() != '\n');
+            printf("Ошибка. Введите число от как показано в примере : ");
+        }
+        } while (spisokstud[i].nomerGrup < 10000 || spisokstud[i].nomerGrup >99999);
+
+        do {
+        printf(" Номер студенческого(Введите в формате 7 цифр '2111851')\n"); scanf("%d", &spisokstud[i].nomerStud);
+        while (scanf("%d", &spisokstud[i].nomerStud) != 1) //Проверка ввода если пользователь введет не цифру
+        {
+            while (getchar() != '\n');
+            printf("Ошибка. Введите число как показано в примере: ");
+        }
+        } while (spisokstud[i].nomerStud < 1000000 || spisokstud[i].nomerStud >9999999);
+
+        do {
+            printf(" Рейтинг студента:(от 0 до 100) ");
+            while (scanf("%d", &spisokstud[i].reiting) != 1) //Проверка ввода если пользователь  введет не цифру
+            {
+                while (getchar() != '\n');
+                printf("Ошибка. Введите число как показано в примере: ");
+            }
+        } while ((spisokstud[i].reiting < 0) || (spisokstud[i].reiting > 100));
 
         if (spisokstud[i].reiting >= 75)
         {
@@ -159,7 +188,12 @@ int f2()
 
     do {
         printf("\n Введите количество преподователей m (m<20): ");
-        scanf("%d", &m); while (getchar() != '\n');
+        while (scanf("%d", &m) != 1) //Проверка ввода если пользователь введет не цифру
+        {
+            while (getchar() != '\n');
+            printf("Ошибка. Введите число от как показано в примере : ");
+        }
+       
     } while (m < 1 || m>20);
     for (j = 0; j < m; j++)
     {
@@ -167,8 +201,24 @@ int f2()
         printf(" ФИО: "); gets_s(spisokprepod[j].fio);
         printf(" Факультет: "); gets_s(spisokprepod[j].fakul);
         printf(" Предмет: "); gets_s(spisokprepod[j].predmet);
-        printf(" Номер аудитории: "); scanf("%d", &spisokprepod[j].auditor);
-        printf(" Стаж работы: "); scanf("%d", &spisokprepod[j].stage);
+        do {
+            printf(" Номер аудитории:(Введите в формате 3 цифр '421')\n");
+            while (scanf("%d", &spisokprepod[j].auditor) != 1) //Проверка ввода если пользователь введет не цифру
+            {
+                while (getchar() != '\n');
+                printf("Ошибка. Введите число от как показано в примере : ");
+            }
+        } while ((spisokprepod[j].auditor < 1) || (spisokprepod[j].auditor > 999));
+
+        do {
+            printf(" Стаж работы:(Введите в формате 2 цифр '39')\n");
+            while (scanf("%d", &spisokprepod[j].stage) != 1) //Проверка ввода если пользователь введет не цифру
+            {
+                while (getchar() != '\n');
+                printf("Ошибка. Введите число от как показано в примере : ");
+            }
+        } while ((spisokprepod[j].stage < 1) || (spisokprepod[j].stage > 999));
+      
 
         if (spisokprepod[j].stage >= 30)
         {
@@ -302,7 +352,7 @@ int main()
             printf(" 5 - Поиск по имени среди студентов\n");
             printf(" 6 - Поиск по имени среди преподователей\n");
             printf(" 7 - Выход из системы\n");
-            while (scanf("%d", &a) != 1) //Проверка ввода если бользователь введет одну цифра scanf вернет 1
+            while (scanf("%d", &a) != 1) //Проверка ввода если пользователь  введет не цифру
             {
                 while (getchar() != '\n');
                 printf("Ошибка. Введите число от 1 до 7 включительно: ");
