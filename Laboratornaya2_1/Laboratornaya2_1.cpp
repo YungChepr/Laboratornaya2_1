@@ -113,7 +113,7 @@ int f1()
         } while (spisokstud[i].nomerGrup < 10000 || spisokstud[i].nomerGrup >99999);
 
         do {
-        printf(" Номер студенческого(Введите в формате 7 цифр '2111851')\n"); scanf("%d", &spisokstud[i].nomerStud);
+        printf(" Номер студенческого(Введите в формате 7 цифр '2111851')\n"); 
         while (scanf("%d", &spisokstud[i].nomerStud) != 1) //Проверка ввода если пользователь введет не цифру
         {
             while (getchar() != '\n');
@@ -197,7 +197,7 @@ int f2()
     } while (m < 1 || m>20);
     for (j = 0; j < m; j++)
     {
-        printf("Преподователь %d \n", (j + 1));
+        printf("Преподователь %d \n", (j + 1)); while (getchar() != '\n');
         printf(" ФИО: "); gets_s(spisokprepod[j].fio);
         printf(" Факультет: "); gets_s(spisokprepod[j].fakul);
         printf(" Предмет: "); gets_s(spisokprepod[j].predmet);
@@ -258,7 +258,6 @@ int f2()
         printf("\n");
         while (getchar() != '\n');
     }
-    printf("\nКонец цикла");
 
     return m;
 }
@@ -330,10 +329,47 @@ void f4(int m)
     }
 }
 
-void f5()
+void f5(int n)
 {
     //Блок - поиск по имени среди студентов
+    int i1;
+    struct ancetastud zap1;
+    while (getchar() != '\n');
+    printf("Введите ФИО студента\n");
+    gets_s(zap1.fio);
+    for (i1 = 0; i1 < n; i1++)  //блок проверки запросов
+    {
 
+        if (strcmp(zap1.fio, spisokstud[i1].fio) == 0)
+        {
+            f3(n);
+        }
+        else
+        {
+            printf("\n По вашему запросу ничего не найдено\n ");
+        }
+    }
+}
+void f6(int m)
+{
+    //Блок - поиск по имени среди студентов
+    int j1;
+    struct ancetastud zap2;
+    while (getchar() != '\n');
+    printf("Введите ФИО преподователя\n");
+    gets_s(zap2.fio);
+    for (j1 = 0; j1 < m; j1++)  //блок проверки запросов
+    {
+
+        if (strcmp(zap2.fio, spisokprepod[j1].fio) == 0)
+        {
+            f4(m);
+        }
+        else
+        {
+            printf("\n По вашему запросу ничего не найдено\n ");
+        }
+    }
 }
 int main()
 {
@@ -387,6 +423,30 @@ int main()
             {
                 printf("Вывод данных о преплдователях\n");
                 f4(m);
+            }
+            else
+            {
+                printf("Сначала введите данные хотя бы об одном преподователе\n");
+            }
+        }
+        if (a == 5)
+        {
+            if (n != 0)
+            {
+            printf("Поиск по имени среди студентов\n");
+            f5(n);
+            }
+            else
+            {
+                printf("Сначала введите данные хотя бы об одном студенте\n");
+            }
+        }
+        if (a == 6)
+        {
+            if (n != 0)
+            {
+                printf("Поиск по имени среди преподователей\n");
+                f6(m);
             }
             else
             {
