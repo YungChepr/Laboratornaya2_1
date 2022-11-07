@@ -313,12 +313,12 @@ void f4(int m)
         }
         if (spisokprepod[j].type == 2)
         {
-            printf(" %s \n ", spisokprepod[j].pre.sre.zvanie);
+            printf(" %s ", spisokprepod[j].pre.sre.zvanie);
             printf(" %d \n ", spisokprepod[j].pre.sre.zarplata);
         }
         if (spisokprepod[j].type == 3)
         {
-            printf(" %s \n ", spisokprepod[j].pre.kor.zvanie);
+            printf(" %s ", spisokprepod[j].pre.kor.zvanie);
             printf(" %d \n ", spisokprepod[j].pre.kor.zarplata);
         }
         if (spisokprepod[j].type == 4)
@@ -384,7 +384,7 @@ int main()
             printf(" 1 - Ввод данных о студентах\n");
             printf(" 2 - Ввод данных о преподователях \n");
             printf(" 3 - Вывод данных о студентах\n");
-            printf(" 4 - Вывод данных о студентах\n");
+            printf(" 4 - Вывод данных о преподователях\n");
             printf(" 5 - Поиск по имени среди студентов\n");
             printf(" 6 - Поиск по имени среди преподователей\n");
             printf(" 7 - Выход из системы\n");
@@ -443,7 +443,7 @@ int main()
         }
         if (a == 6)
         {
-            if (n != 0)
+            if (m != 0)
             {
                 printf("Поиск по имени среди преподователей\n");
                 f6(m);
