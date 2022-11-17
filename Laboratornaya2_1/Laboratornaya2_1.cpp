@@ -8,6 +8,9 @@
 #include <clocale>
 #include <locale.h>
 
+//Константа хранит количество элементов массива преподователей
+const int N = 30;
+
 //Задаем переменную структуру для создания анкеты данных о студентах.
 struct ancetastud
 {
@@ -57,29 +60,34 @@ struct ancetaprepod
         {
             char zvanie[30];
             int zarplata;
+            int doctorskaya;
 
         } dol;
         struct    //Структура хранит данные для доцента
         {
             char zvanie[30];
             int zarplata;
+            int monograthiya;
 
         } sre;
         struct    //Структура хранит данные для старшего преподователя
         {
             char zvanie[30];
             int zarplata;
+            int kolgrup;
 
         } kor;
         struct    //Структура хранит данные для преподователя
         {
             char zvanie[30];
             int zarplata;
+            int kolchasov;
 
         } ochkor;
     }pre;
 
-}spisokprepod[30]; //Массив в котором будут хранится данные преподователей
+//}spisokprepod[30]; //Массив в котором будут хранится данные преподователей
+} *spisokprepod; //Указатель на массив в котором будут хранится данные преподователей
 
 
 int f1()
@@ -198,59 +206,91 @@ int f2()
     for (j = 0; j < m; j++)
     {
         printf("Преподователь %d \n", (j + 1)); while (getchar() != '\n');
-        printf(" ФИО: "); gets_s(spisokprepod[j].fio);
-        printf(" Факультет: "); gets_s(spisokprepod[j].fakul);
-        printf(" Предмет: "); gets_s(spisokprepod[j].predmet);
+        printf(" ФИО: "); gets_s((*(spisokprepod+j)).fio);
+        printf(" Факультет: "); gets_s((*(spisokprepod + j)).fakul);
+        printf(" Предмет: "); gets_s((*(spisokprepod + j)).predmet);
         do {
             printf(" Номер аудитории:(Введите в формате 3 цифр '421')\n");
-            while (scanf("%d", &spisokprepod[j].auditor) != 1) //Проверка ввода если пользователь введет не цифру
+            while (scanf("%d", &(*(spisokprepod + j)).auditor) != 1) //Проверка ввода если пользователь введет не цифру
             {
                 while (getchar() != '\n');
                 printf("Ошибка. Введите число от как показано в примере : ");
             }
-        } while ((spisokprepod[j].auditor < 1) || (spisokprepod[j].auditor > 999));
+        } while (((*(spisokprepod + j)).auditor < 100) || ((*(spisokprepod + j)).auditor > 999));
 
         do {
             printf(" Стаж работы:(Введите в формате 2 цифр '39')\n");
-            while (scanf("%d", &spisokprepod[j].stage) != 1) //Проверка ввода если пользователь введет не цифру
+            while (scanf("%d", &(*(spisokprepod + j)).stage) != 1) //Проверка ввода если пользователь введет не цифру
             {
                 while (getchar() != '\n');
                 printf("Ошибка. Введите число от как показано в примере : ");
             }
-        } while ((spisokprepod[j].stage < 1) || (spisokprepod[j].stage > 999));
+        } while (((*(spisokprepod + j)).stage < 1) || ((*(spisokprepod + j)).stage > 99));
       
 
-        if (spisokprepod[j].stage >= 30)
+        if ((*(spisokprepod + j)).stage >= 30)
         {
-            spisokprepod[j].type = 1;
-            strcpy(spisokprepod[j].pre.dol.zvanie, "Профессор ");
+            (*(spisokprepod + j)).type = 1;
+            strcpy((*(spisokprepod + j)).pre.dol.zvanie, "Профессор ");
             printf("Введите размер зарплаты\n");
-            scanf("%d", &spisokprepod[j].pre.dol.zarplata);
+            scanf("%d", &(*(spisokprepod + j)).pre.dol.zarplata);
+            do {
+                printf(" Есть ли у профессора докторская работа 1 - да, 2 - нет:)\n");
+                while (scanf("%d", &(*(spisokprepod + j)).pre.dol.doctorskaya) != 1) //Проверка ввода если пользователь введет не цифру
+                {
+                    while (getchar() != '\n');
+                    printf("Ошибка. Введите число от как показано в примере : ");
+                }
+            } while (((*(spisokprepod + j)).pre.dol.doctorskaya < 1) || ((*(spisokprepod + j)).pre.dol.doctorskaya > 2));
         }
         else
         {
 
-            if (spisokprepod[j].stage >= 20)
+            if ((*(spisokprepod + j)).stage >= 20)
             {
-                spisokprepod[j].type = 2;
-                strcpy(spisokprepod[j].pre.sre.zvanie, "Доцент ");
+                (*(spisokprepod + j)).type = 2;
+                strcpy((*(spisokprepod + j)).pre.sre.zvanie, "Доцент ");
                 printf("Введите размер зарплаты\n");
-                scanf("%d", &spisokprepod[j].pre.sre.zarplata);
+                scanf("%d", &(*(spisokprepod + j)).pre.sre.zarplata); 
+                do {
+                    printf(" Есть ли у доцента монография 1 - да, 2 - нет:)\n");
+                    while (scanf("%d", &(*(spisokprepod + j)).pre.sre.monograthiya) != 1) //Проверка ввода если пользователь введет не цифру
+                    {
+                        while (getchar() != '\n');
+                        printf("Ошибка. Введите число от как показано в примере : ");
+                    }
+                } while (((*(spisokprepod + j)).pre.sre.monograthiya < 1) || ((*(spisokprepod + j)).pre.sre.monograthiya > 2));
             }
             else
-                if (spisokprepod[j].stage >= 10)
+                if ((*(spisokprepod + j)).stage >= 10)
                 {
-                    spisokprepod[j].type = 3;
-                    strcpy(spisokprepod[j].pre.kor.zvanie, "Старший Преподователь ");
+                    (*(spisokprepod + j)).type = 3;
+                    strcpy((*(spisokprepod + j)).pre.kor.zvanie, "Старший Преподователь ");
                     printf("Введите размер зарплаты\n");
-                    scanf("%d", &spisokprepod[j].pre.kor.zarplata);
+                    scanf("%d", &(*(spisokprepod + j)).pre.kor.zarplata);
+                    do {
+                        printf(" Введите количество групп:(Не больше 10)\n");
+                        while (scanf("%d", &(*(spisokprepod + j)).pre.kor.kolgrup) != 1) //Проверка ввода если пользователь введет не цифру
+                        {
+                            while (getchar() != '\n');
+                            printf("Ошибка. Введите число от как показано в примере : ");
+                        }
+                    } while (((*(spisokprepod + j)).pre.kor.kolgrup < 0) || ((*(spisokprepod + j)).pre.kor.kolgrup > 11));
                 }
                 else
                 {
-                    spisokprepod[j].type = 4;
-                    strcpy(spisokprepod[j].pre.ochkor.zvanie, "Преподователь ");
+                    (*(spisokprepod + j)).type = 4;
+                    strcpy((*(spisokprepod + j)).pre.ochkor.zvanie, "Преподователь ");
                     printf("Введите размер зарплаты\n");
-                    scanf("%d", &spisokprepod[j].pre.ochkor.zarplata);
+                    scanf("%d", &(*(spisokprepod + j)).pre.ochkor.zarplata);
+                    do {
+                        printf(" Введите количество часов:(Не больше 40)\n");
+                        while (scanf("%d", &(*(spisokprepod + j)).pre.ochkor.kolchasov) != 1) //Проверка ввода если пользователь введет не цифру
+                        {
+                            while (getchar() != '\n');
+                            printf("Ошибка. Введите число от как показано в примере : ");
+                        }
+                    } while (((*(spisokprepod + j)).pre.ochkor.kolchasov < 0) || ((*(spisokprepod + j)).pre.ochkor.kolchasov > 40));
                 };
 
 
@@ -301,30 +341,51 @@ void f4(int m)
         
     for (j = 0; j < m; j++)
     {
-        printf(" %s ", spisokprepod[j].fio);
-        printf(" %s ", spisokprepod[j].fakul);
-        printf(" %s ", spisokprepod[j].predmet);
-        printf(" %d ", spisokprepod[j].auditor);
-        printf(" %d ", spisokprepod[j].stage);
-        if (spisokprepod[j].type == 1)
+        //printf(" %s ", spisokprepod[j].fio);
+        printf(" %s ", (*(spisokprepod + j)).fio);
+        printf(" %s ", (*(spisokprepod + j)).fakul);
+        printf(" %s ", (*(spisokprepod + j)).predmet);
+        printf(" %d ", (*(spisokprepod + j)).auditor);
+        printf(" %d ", (*(spisokprepod + j)).stage);
+        if ((*(spisokprepod + j)).type == 1)
         {
-            printf(" %s  ", spisokprepod[j].pre.dol.zvanie);
-            printf(" %d \n ", spisokprepod[j].pre.dol.zarplata);
+            printf(" %s  ", (*(spisokprepod + j)).pre.dol.zvanie);
+            printf(" %d  ", (*(spisokprepod + j)).pre.dol.zarplata);
+            if ((*(spisokprepod + j)).pre.dol.doctorskaya == 1)
+            {
+                printf(" У профессора есть докторская работа \n  ");
+            }
+            else
+            {
+                printf(" У профессора нет докторская работы \n  ");
+
+            }
         }
-        if (spisokprepod[j].type == 2)
+        if ((*(spisokprepod + j)).type == 2)
         {
-            printf(" %s ", spisokprepod[j].pre.sre.zvanie);
-            printf(" %d \n ", spisokprepod[j].pre.sre.zarplata);
+            printf(" %s ", (*(spisokprepod + j)).pre.sre.zvanie);
+            printf(" %d ", (*(spisokprepod + j)).pre.sre.zarplata);
+            if ((*(spisokprepod + j)).pre.sre.monograthiya == 1)
+            {
+                printf(" У Доцента есть монография \n  ");
+            }
+            else
+            {
+                printf(" У Доцента нет монографии \n  ");
+
+            }
         }
-        if (spisokprepod[j].type == 3)
+        if ((*(spisokprepod + j)).type == 3)
         {
-            printf(" %s ", spisokprepod[j].pre.kor.zvanie);
-            printf(" %d \n ", spisokprepod[j].pre.kor.zarplata);
+            printf(" %s ", (*(spisokprepod + j)).pre.kor.zvanie);
+            printf(" %d ", (*(spisokprepod + j)).pre.kor.zarplata);
+            printf(" %d \n ", (*(spisokprepod + j)).pre.kor.kolgrup);
         }
-        if (spisokprepod[j].type == 4)
+        if ((*(spisokprepod + j)).type == 4)
         {
-            printf(" %s ", spisokprepod[j].pre.ochkor.zvanie);
-            printf(" %d \n ", spisokprepod[j].pre.ochkor.zarplata);
+            printf(" %s ", (*(spisokprepod + j)).pre.ochkor.zvanie);
+            printf(" %d ", (*(spisokprepod + j)).pre.ochkor.zarplata);
+            printf(" %d \n ", (*(spisokprepod + j)).pre.ochkor.kolchasov);
         }
     }
 }
@@ -361,7 +422,7 @@ void f6(int m)
     for (j1 = 0; j1 < m; j1++)  //блок проверки запросов
     {
 
-        if (strcmp(zap2.fio, spisokprepod[j1].fio) == 0)
+        if (strcmp(zap2.fio, (*(spisokprepod + j1)).fio) == 0)
         {
             f4(m);
         }
@@ -377,6 +438,9 @@ int main()
     int a, //Переменная отвечающая за выбор строчки в меню
         n=0,//Количество студентов
         m=0;//Количество преподователей
+        
+    //Выделяю память для массива преподователей
+    spisokprepod = (struct ancetaprepod*)malloc(sizeof(struct ancetaprepod)*N);
 
     do {
         do {
@@ -457,7 +521,7 @@ int main()
     } while (a != 7);
     printf("\nВы вышли из системы\n");
 
-
+    free(spisokprepod); //Очищаю память динамического массива структур
     
   
 
