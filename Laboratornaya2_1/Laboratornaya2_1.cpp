@@ -174,6 +174,8 @@ int f1()
                     while (getchar() != '\n');
                     printf("Введите телефон студента\n");
                     gets_s(spisokstud[i].uch.dvo.telephone);
+                   
+
                 };
             };
 
@@ -341,7 +343,6 @@ void f4(int m)
         
     for (j = 0; j < m; j++)
     {
-        //printf(" %s ", spisokprepod[j].fio);
         printf(" %s ", (*(spisokprepod + j)).fio);
         printf(" %s ", (*(spisokprepod + j)).fakul);
         printf(" %s ", (*(spisokprepod + j)).predmet);
@@ -393,7 +394,7 @@ void f4(int m)
 void f5(int n)
 {
     //Блок - поиск по имени среди студентов
-    int i1;
+    int i1,f1=0;
     struct ancetastud zap1;
     while (getchar() != '\n');
     printf("Введите ФИО студента\n");
@@ -403,18 +404,41 @@ void f5(int n)
 
         if (strcmp(zap1.fio, spisokstud[i1].fio) == 0)
         {
-            f3(n);
+            printf(" %s ", spisokstud[i1].fio);
+            printf(" %d ", spisokstud[i1].nomerGrup);
+            printf(" %d ", spisokstud[i1].nomerStud);
+            printf(" %d ", spisokstud[i1].reiting);
+            if (spisokstud[i1].type == 11)
+            {
+                printf(" %s ", spisokstud[i1].uch.otl.dopstependia);
+                printf(" %d \n ", spisokstud[i1].uch.otl.razmer);
+            }
+            if (spisokstud[i1].type == 2)
+            {
+                printf(" %s ", spisokstud[i1].uch.hor.stependia);
+                printf(" %d \n ", spisokstud[i1].uch.hor.razmer);
+            }
+            if (spisokstud[i1].type == 3)
+            {
+                printf(" %s \n ", spisokstud[i1].uch.tro.stependia);
+            }
+            if (spisokstud[i1].type == 4)
+            {
+                printf(" %s ", spisokstud[i1].uch.dvo.adres);
+                printf(" %s \n ", spisokstud[i1].uch.dvo.telephone);
+            }
+            f1 = 1;
         }
-        else
-        {
-            printf("\n По вашему запросу ничего не найдено\n ");
-        }
+    }
+    if (f1 == 0)
+    {
+        printf("\n По вашему запросу ничего не найдено\n ");
     }
 }
 void f6(int m)
 {
-    //Блок - поиск по имени среди студентов
-    int j1;
+    //Блок - поиск по имени среди преподователей
+    int j1,f2=0;
     struct ancetastud zap2;
     while (getchar() != '\n');
     printf("Введите ФИО преподователя\n");
@@ -424,12 +448,57 @@ void f6(int m)
 
         if (strcmp(zap2.fio, (*(spisokprepod + j1)).fio) == 0)
         {
-            f4(m);
+            printf(" %s ", (*(spisokprepod + j1)).fio);
+            printf(" %s ", (*(spisokprepod + j1)).fakul);
+            printf(" %s ", (*(spisokprepod + j1)).predmet);
+            printf(" %d ", (*(spisokprepod + j1)).auditor);
+            printf(" %d ", (*(spisokprepod + j1)).stage);
+            if ((*(spisokprepod + j1)).type == 1)
+            {
+                printf(" %s  ", (*(spisokprepod + j1)).pre.dol.zvanie);
+                printf(" %d  ", (*(spisokprepod + j1)).pre.dol.zarplata);
+                if ((*(spisokprepod + j1)).pre.dol.doctorskaya == 1)
+                {
+                    printf(" У профессора есть докторская работа \n  ");
+                }
+                else
+                {
+                    printf(" У профессора нет докторская работы \n  ");
+
+                }
+            }
+            if ((*(spisokprepod + j1)).type == 2)
+            {
+                printf(" %s ", (*(spisokprepod + j1)).pre.sre.zvanie);
+                printf(" %d ", (*(spisokprepod + j1)).pre.sre.zarplata);
+                if ((*(spisokprepod + j1)).pre.sre.monograthiya == 1)
+                {
+                    printf(" У Доцента есть монография \n  ");
+                }
+                else
+                {
+                    printf(" У Доцента нет монографии \n  ");
+
+                }
+            }
+            if ((*(spisokprepod + j1)).type == 3)
+            {
+                printf(" %s ", (*(spisokprepod + j1)).pre.kor.zvanie);
+                printf(" %d ", (*(spisokprepod + j1)).pre.kor.zarplata);
+                printf(" %d \n ", (*(spisokprepod + j1)).pre.kor.kolgrup);
+            }
+            if ((*(spisokprepod + j1)).type == 4)
+            {
+                printf(" %s ", (*(spisokprepod + j1)).pre.ochkor.zvanie);
+                printf(" %d ", (*(spisokprepod + j1)).pre.ochkor.zarplata);
+                printf(" %d \n ", (*(spisokprepod + j1)).pre.ochkor.kolchasov);
+            }
+            f2 = 1;
         }
-        else
-        {
-            printf("\n По вашему запросу ничего не найдено\n ");
-        }
+    }
+    if(f2==0)
+    {
+    printf("\n По вашему запросу ничего не найдено\n ");
     }
 }
 int main()
