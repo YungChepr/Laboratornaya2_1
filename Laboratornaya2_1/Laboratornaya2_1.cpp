@@ -88,7 +88,31 @@ struct ancetaprepod
 
 //}spisokprepod[30]; //Массив в котором будут хранится данные преподователей
 } *spisokprepod; //Указатель на массив в котором будут хранится данные преподователей
-
+void in1(int n) //Функция инициализации для студентов
+{
+    int i;
+    for (i = 0; i < n; i++)
+    {
+        strcpy(spisokstud[i].fio, "");
+        spisokstud[i].nomerGrup = 0;
+        spisokstud[i].nomerStud = 0;
+        spisokstud[i].reiting = 0;
+        spisokstud[i].type = 0;
+    }
+}
+void in2(int m) //Функция инициализации для преподователей
+{
+    int j;
+    for (j = 0; j < m; j++)
+    {
+        strcpy((*(spisokprepod + j)).fio, "");
+        strcpy((*(spisokprepod + j)).fakul, "");
+        strcpy((*(spisokprepod + j)).predmet, "");
+        (* (spisokprepod + j)).auditor = 0;
+        (* (spisokprepod + j)).stage = 0;
+        (* (spisokprepod + j)).type = 0;
+    }
+}
 
 int f1()
 {
@@ -106,6 +130,7 @@ int f1()
         }
         while (getchar() != '\n');
     } while (n < 1 || n>20);
+    in1(n);
     for (i = 0; i < n; i++)
     {
         printf("Студент %d \n", (i + 1));
@@ -205,6 +230,7 @@ int f2()
         }
        
     } while (m < 1 || m>20);
+    in2(m);
     for (j = 0; j < m; j++)
     {
         printf("Преподователь %d \n", (j + 1)); while (getchar() != '\n');
