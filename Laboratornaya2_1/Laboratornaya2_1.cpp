@@ -4,27 +4,35 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <conio.h>
-#include <stdio.h>
 #include <clocale>
 #include <locale.h>
 #include "ancetastud.h"
 #include "ancetaprepod.h"
 //Константа хранит количество элементов массива преподователей
-const int N = 20;
+
 
 int main()
 {
     setlocale(LC_ALL, "RUS");
-    ancetastud spisokstud[N]; //Массив в котором будут хранится данные преподователей
+    ancetastud spisokstud[N]; //Массив в котором будут хранится данные cтудентов
     ancetaprepod *spisokprepod; //Указатель на массив в котором будут хранится данные преподователей
    
+    char pustayastroka[N];   //Пустая строка для инициализации
+    ancetastud *SP;
+    strcpy(pustayastroka,"");
+     
         
     int a, //Переменная отвечающая за выбор строчки в меню
         n=0,//Количество студентов
         i,//Индекс массива студентов
         m=0,//Количество преподователей
         j;//Индекс массива преподователей
-        
+    //Провожу инициализацию массива студентов
+    for (i = 0; i++; i < N)
+    {
+        SP = &(spisokstud[i]);
+        initializationstud1(SP, pustayastroka, 0, 0, 0, typchik::DVO);
+    }
     //Выделяю память для массива преподователей
     spisokprepod = (struct ancetaprepod*)malloc(sizeof(struct ancetaprepod)*N);
 
@@ -60,8 +68,8 @@ int main()
             for (i = 0; i < n; i++)
             {
                 printf("Студент %d \n", (i + 1));
-                spisokstud[i]=initializationstud(spisokstud[i]);
-                spisokstud[i]=inputstud(spisokstud[i]);
+                SP = &(spisokstud[i]);
+                inputstud1(SP);
             }
         }
         if (a == 2)
@@ -91,7 +99,7 @@ int main()
                 printf("Вывод данных о студентах\n");
                 for (i = 0; i < n; i++)
                 {
-                    outputstud(spisokstud[i]);
+                    outputstud1(spisokstud[i]);
                 }
             }
             else
@@ -107,6 +115,7 @@ int main()
                 for (j = 0; j < m; j++)
                 {
                     outputprepod(*(spisokprepod + j));
+                    //outputprepod( (*(spisokprepod + j))->getfio());
                 }
             }
             else
@@ -116,27 +125,18 @@ int main()
         }
         if (a == 5)
         {
-            int f1 = 0;
+            
             int f3 = 0;
             if (n != 0)
             {
-                struct ancetastud zap1;
+                char zap1 [N];
                 printf("Поиск по имени среди студентов\n");
                 while (getchar() != '\n');
                 printf("Введите ФИО студента\n");
-                gets_s(zap1.fio);
-                for (i = 0; i < n; i++)  //блок проверки запросов
-                {
-                    f1=searchbynamestud(spisokstud[i], zap1);
-                    if (f1 == 1)
-                    {
-                        f3 = 1;
-                    }
-                }
-                if (f3 == 0)
-                {
-                    printf("\n По вашему запросу ничего не найдено\n ");
-                }
+                gets_s(zap1);
+                f3 = searchbynamestud1(spisokstud, zap1);
+                printf("\n Всего найдено студентов с таким именем: %d\n ", f3);
+                
             }
             else
             {

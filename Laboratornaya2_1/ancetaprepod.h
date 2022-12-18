@@ -55,6 +55,17 @@ ancetaprepod initializationprepod(ancetaprepod b)
     return b;
 }
 
+/*ancetaprepod initializationprepod2(char f[30], char fa[30], char pre[30], int aur, int sta, int ty)
+{
+    strcpy((b).fio, f);
+    strcpy((b).fakul, fa);
+    strcpy((b).predmet, pre);
+    b.auditor = aur;
+    b.stage = sta;
+    b.type = ty;
+    return b;
+} */
+
 ancetaprepod inputprepod(ancetaprepod b)
 {
     printf(" ิศฮ: "); gets_s(b.fio);
