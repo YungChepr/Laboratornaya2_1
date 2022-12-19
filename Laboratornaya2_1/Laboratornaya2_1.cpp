@@ -7,7 +7,6 @@
 #include <clocale>
 #include <locale.h>
 #include "ancetastud.h"
-#include "ancetaprepod.h"
 //Константа хранит количество элементов массива преподователей
 
 
@@ -15,36 +14,36 @@ int main()
 {
     setlocale(LC_ALL, "RUS");
     ancetastud spisokstud[N]; //Массив в котором будут хранится данные cтудентов
-    ancetaprepod *spisokprepod; //Указатель на массив в котором будут хранится данные преподователей
-   
+    ancetastud *spisokstud2;  //Указатель на массив в котором будут хранится данные студентов
+
     char pustayastroka[N];   //Пустая строка для инициализации
-    ancetastud *SP;
+    ancetastud *SP,*SP2;     //Указатели на массивы студентов статический и динамический
     strcpy(pustayastroka,"");
      
         
     int a, //Переменная отвечающая за выбор строчки в меню
         n=0,//Количество студентов
         i,//Индекс массива студентов
-        m=0,//Количество преподователей
-        j;//Индекс массива преподователей
+        m=0,//Количество студентов(динамический)
+        j;//Индекс массива студентов(динамический)
     //Провожу инициализацию массива студентов
     for (i = 0; i++; i < N)
     {
         SP = &(spisokstud[i]);
         initializationstud1(SP, pustayastroka, 0, 0, 0, typchik::DVO);
     }
-    //Выделяю память для массива преподователей
-    spisokprepod = (struct ancetaprepod*)malloc(sizeof(struct ancetaprepod)*N);
+    //Выделяю память для динамического массива студентов
+    spisokstud2 = (struct ancetastud*)malloc(sizeof(struct ancetastud)*N);
 
     do {
         do {
             printf("Выберите действие в меню\n");
             printf(" 1 - Ввод данных о студентах\n");
-            printf(" 2 - Ввод данных о преподователях \n");
+            printf(" 2 - Ввод данных о cтудентах(динамический массив) \n");
             printf(" 3 - Вывод данных о студентах\n");
-            printf(" 4 - Вывод данных о преподователях\n");
+            printf(" 4 - Вывод данных о cтудентах(динамический массив)\n");
             printf(" 5 - Поиск по имени среди студентов\n");
-            printf(" 6 - Поиск по имени среди преподователей\n");
+            printf(" 6 - Поиск по имени среди cтудентов(динамический массив)\n");
             printf(" 7 - Выход из системы\n");
             while (scanf("%d", &a) != 1) //Проверка ввода если пользователь  введет не цифру
             {
@@ -74,10 +73,10 @@ int main()
         }
         if (a == 2)
         {
-            printf("Ввод данных о преподователях\n");
+            printf("Ввод данных о студентах(динамический)\n");
             do 
             {
-                printf("\n Введите количество преподователей m (m<20): ");
+                printf("\n Введите количество студентов m (m<20): ");
                 while (scanf("%d", &m) != 1) //Проверка ввода если пользователь введет введет не цифру
                 {
                     while (getchar() != '\n');
@@ -87,9 +86,9 @@ int main()
             } while (m < 1 || m>20);
             for (j = 0; j < m; j++)
             {
-                printf("Преподователь %d \n", (j + 1));
-                *(spisokprepod + j) = initializationprepod(*(spisokprepod + j));
-                *(spisokprepod + j) = inputprepod(*(spisokprepod + j));
+                printf("Студент %d \n", (j + 1));
+                SP2 = &(*(spisokstud2 + j));
+                inputstud1(SP2);
             }
         } 
         if (a == 3)
@@ -114,7 +113,7 @@ int main()
                 printf("Вывод данных о преподователях\n");
                 for (j = 0; j < m; j++)
                 {
-                    outputprepod(*(spisokprepod + j));
+                    outputstud1(*(spisokstud2 + j));
                     //outputprepod( (*(spisokprepod + j))->getfio());
                 }
             }
@@ -145,38 +144,28 @@ int main()
         }
         if (a == 6)
         {
-            int f2 = 0;
             int f4 = 0;
             if (m != 0)
             {
-                struct ancetaprepod zap2;
-                printf("Поиск по имени среди преподователей\n");
+                char zap2[N];
+                printf("Поиск по имени среди студентов\n");
                 while (getchar() != '\n');
-                printf("Введите ФИО преподователя\n");
-                gets_s(zap2.fio);
-                for (j = 0; j < m; j++)  //блок проверки запросов
-                {
-                    f2 = searchbynameprepod(*(spisokprepod + j), zap2);
-                    if (f2 ==1)
-                    {
-                        f4 = 1;
-                    }
-                }
-                if (f4 == 0)
-                {
-                    printf("\n По вашему запросу ничего не найдено\n ");
-                }
+                printf("Введите ФИО студента\n");
+                gets_s(zap2);
+                f4 = searchbynamestud1(spisokstud2, zap2);
+                printf("\n Всего найдено студентов с таким именем: %d\n ", f4);
+
             }
             else
             {
-                printf("Сначала введите данные хотя бы об одном преподователе\n");
+                printf("Сначала введите данные хотя бы об одном студенте\n");
             }
         }
 
     } while (a != 7);
     printf("\nВы вышли из системы\n");
 
-    free(spisokprepod); //Очищаю память динамического массива структур
+    free(spisokstud2); //Очищаю память динамического массива структур
     
   
 

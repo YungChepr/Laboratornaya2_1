@@ -119,12 +119,12 @@ void outputstud1(ancetastud a) //Блок - вывод данных о студентах
         printf(" %s ", a.uch.dvo.adres);
         printf(" %s \n ", a.uch.dvo.telephone);
     }
-    //убрать return и параметры использовать enum
+    //убрать return и параметры использовать enum сделал
     //return;
 }
 
 int searchbynamestud1(ancetastud spisokstud[N], char  c [N]) //Блок - поиск по имени среди студентов
-{
+{   // функция возращает количество найденных совпадений
     int f1 = 0;
     int i;
     for (i = 0; i < N; i++)  //блок проверки запросов
