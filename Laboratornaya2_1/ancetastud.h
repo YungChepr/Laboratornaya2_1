@@ -50,3 +50,4 @@ void initializationstud1(ancetastud* a, char f[30], int ng, int ns, int r, typch
 void inputstud1(ancetastud*  a);
 void outputstud1(ancetastud a);
 int searchbynamestud1(ancetastud spisokstud[N], char[N]);
+int searchbyreiting1(ancetastud spisokstud[N], int d);

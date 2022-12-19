@@ -164,3 +164,44 @@ int searchbynamestud1(ancetastud spisokstud[N], char  c [N]) //Блок - поиск по и
 
     return f1;
 }
+int searchbyreiting1(ancetastud spisokstud[N], int d) //Блок - поиск по рейтингу среди студентов
+{   // функция возращает количество найденных совпадений
+    int f2 = 0;
+    int i;
+    for (i = 0; i < N; i++)  //блок проверки запросов
+    {
+        if (d == spisokstud[i].reiting)
+        {
+            printf(" %s ", spisokstud[i].fio);
+            printf(" %d ", spisokstud[i].nomerGrup);
+            printf(" %d ", spisokstud[i].nomerStud);
+            printf(" %d ", spisokstud[i].reiting);
+            if (spisokstud[i].type == OTL)
+            {
+                printf(" %s ", spisokstud[i].uch.otl.dopstependia);
+                printf(" %d \n ", spisokstud[i].uch.otl.razmer);
+            }
+            if (spisokstud[i].type == HOR)
+            {
+                printf(" %s ", spisokstud[i].uch.hor.stependia);
+                printf(" %d \n ", spisokstud[i].uch.hor.razmer);
+            }
+            if (spisokstud[i].type == TRO)
+            {
+                printf(" %s \n ", spisokstud[i].uch.tro.stependia);
+            }
+            if (spisokstud[i].type == DVO)
+            {
+                printf(" %s ", spisokstud[i].uch.dvo.adres);
+                printf(" %s \n ", spisokstud[i].uch.dvo.telephone);
+            }
+            f2 = f2 + 1;
+        }
+    }
+    if (f2 == 0)
+    {
+        printf("\n По вашему запросу ничего не найдено\n ");
+    }
+
+    return f2;
+}
